@@ -14,6 +14,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
+import static com.game.rockpaperscissors.enums.Move.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.*;
@@ -37,8 +38,8 @@ class GameTest {
     @Test
     void testplayRound() {
         //Given
-        doReturn(Move.ROCK).when(humanPlayer).getChoice();
-        doReturn(Move.PAPER).when(computerPlayer).getChoice();
+        doReturn(ROCK).when(humanPlayer).getChoice();
+        doReturn(PAPER).when(computerPlayer).getChoice();
 
         //when
         game.playRound();
@@ -53,8 +54,8 @@ class GameTest {
     @Test
     void testplayRound2() {
         //Given
-        doReturn(Move.SCISSORS).when(humanPlayer).getChoice();
-        doReturn(Move.PAPER).when(computerPlayer).getChoice();
+        doReturn(SCISSORS).when(humanPlayer).getChoice();
+        doReturn(PAPER).when(computerPlayer).getChoice();
 
         //when
         game.playRound();
@@ -63,6 +64,30 @@ class GameTest {
         verify(humanPlayer).incrementScore();
         assertThat(computerPlayer.getScore(), equalTo(0));
         assertThat(humanPlayer.getScore(), equalTo(1));
+    }
 
+
+    @Test
+    void should_numberOfRounds_be_3_humanPlayer_score_be_1_and_computerPlayer_score_be_1() {
+        doReturn('Y', 'Y', 'N').when(consoleReader).readPlayerInput(anyString());
+        doReturn(SCISSORS, ROCK, PAPER).when(humanPlayer).getChoice();
+        doReturn(PAPER).when(computerPlayer).getChoice();
+
+        game.play();
+        assertThat(game.getNumberOfRounds(), equalTo(3));
+        assertThat(humanPlayer.getScore(), equalTo(1));
+        assertThat(computerPlayer.getScore(), equalTo(1));
+    }
+
+    @Test
+    void should_numberOfRounds_be_3_humanPlayer_score_be_0_and_computerPlayer_score_be_0() {
+        doReturn('Y', 'Y', 'N').when(consoleReader).readPlayerInput(anyString());
+        doReturn(PAPER, ROCK, SCISSORS).when(humanPlayer).getChoice();
+        doReturn(PAPER, ROCK, SCISSORS).when(computerPlayer).getChoice();
+
+        game.play();
+        assertThat(game.getNumberOfRounds(), equalTo(3));
+        assertThat(humanPlayer.getScore(), equalTo(0));
+        assertThat(computerPlayer.getScore(), equalTo(0));
     }
 }

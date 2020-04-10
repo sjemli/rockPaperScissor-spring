@@ -10,7 +10,7 @@ import java.util.Optional;
 @Component
 public class HumanPlayer extends Player {
 
-    public static final String MOVE_INPUT_MESSAGE = "Enter move code : R => Rock, P => Paper, S => Scissors";
+    private static final String MOVE_INPUT_MESSAGE = "Enter move code : R => Rock, P => Paper, S => Scissors";
     private final ConsoleReader consoleReader;
 
     @Autowired
@@ -19,7 +19,7 @@ public class HumanPlayer extends Player {
     }
 
     public HumanPlayer() {
-        consoleReader = new ConsoleReader();
+        this(new ConsoleReader());
     }
 
     @Override

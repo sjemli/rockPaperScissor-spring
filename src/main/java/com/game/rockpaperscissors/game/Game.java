@@ -6,18 +6,16 @@ import com.game.rockpaperscissors.enums.Result;
 import com.game.rockpaperscissors.players.Player;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-
 import static com.game.rockpaperscissors.enums.Result.*;
 
-//https://codereview.stackexchange.com/questions/90501/rock-paper-scissors
 @Component
 public class Game {
 
-    public static final String CONTINUE_GAME_MESSAGE = "**** Would you like to continue ? Y - N ***";
+    private static final String CONTINUE_GAME_MESSAGE = "**** Would you like to continue ? Y - N ***";
     private final Player humanPlayer;
     private final Player computerPlayer;
     private final ConsoleReader consoleReader;
+
     private int numberOfRounds;
 
     public Game(Player humanPlayer, Player computerPlayer, ConsoleReader consoleReader) {
@@ -52,9 +50,8 @@ public class Game {
 
 
     private String getFinalResultMessage() {
-        String finalResultMessage = "Player ==> " + humanPlayer.getScore() + " Computer ==> " + computerPlayer
+        return "Player ==> " + humanPlayer.getScore() + " Computer ==> " + computerPlayer
                 .getScore() + " after " + numberOfRounds + " rounds";
-        return finalResultMessage;
     }
 
     public void play() {
@@ -63,7 +60,12 @@ public class Game {
             playRound();
             keepPlaying = consoleReader.readPlayerInput(CONTINUE_GAME_MESSAGE);
         }
-        String finalResultMessage = getFinalResultMessage();
-        System.out.println(finalResultMessage);
+        System.out.println(getFinalResultMessage());
     }
+
+
+    public int getNumberOfRounds() {
+        return numberOfRounds;
+    }
+
 }
