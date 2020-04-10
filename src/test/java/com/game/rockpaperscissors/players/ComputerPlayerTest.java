@@ -1,11 +1,7 @@
 package com.game.rockpaperscissors.players;
 
-import static com.game.rockpaperscissors.enums.Move.*;
-
 import com.game.rockpaperscissors.enums.Move;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -17,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Random;
 import java.util.stream.Stream;
 
+import static com.game.rockpaperscissors.enums.Move.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.when;

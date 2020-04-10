@@ -2,12 +2,10 @@ package com.game.rockpaperscissors.players;
 
 import com.game.rockpaperscissors.enums.Move;
 import com.game.rockpaperscissors.game.ConsoleReader;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.hamcrest.MatcherAssert.assertThat;
