@@ -11,7 +11,7 @@ public enum Result {
 
     @Override
     public String toString() {
-        return "Result = {" + message + "}.";
+        return message;
     }
 
 }

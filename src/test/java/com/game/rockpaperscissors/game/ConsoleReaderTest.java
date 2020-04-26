@@ -21,9 +21,23 @@ class ConsoleReaderTest {
         ConsoleReader consoleReader = new ConsoleReader();
 
         //When
-        char readChar = consoleReader.readPlayerInput(inputMessage);
+        char readChar = consoleReader.readPlayerMove(inputMessage);
         //Then
         assertThat(readChar, equalTo('S'));
     }
 
+    @Test
+    public void should_numberOfRounds_be_equal_to_55() {
+        //Given
+        String input = "55";
+        String inputMessage = "";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        ConsoleReader consoleReader = new ConsoleReader();
+
+        //When
+        int numberOfRounds = consoleReader.readNumberOfRounds(inputMessage);
+        //Then
+        assertThat(numberOfRounds, equalTo(55));
+    }
 }

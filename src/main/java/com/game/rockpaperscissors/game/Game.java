@@ -11,27 +11,26 @@ import static com.game.rockpaperscissors.enums.Result.*;
 @Component
 public class Game {
 
-    private static final String CONTINUE_GAME_MESSAGE = "**** Would you like to continue ? Y - N ***";
+    private static final String MAXIMUM_NUMBER_OF_ROUNDS_MESSAGE = "**** How many rounds do you want to play? : ***";
+
     private final Player humanPlayer;
     private final Player computerPlayer;
     private final ConsoleReader consoleReader;
-
-    private int numberOfRounds;
+    private int maximumNumberOfRounds;
 
     public Game(Player humanPlayer, Player computerPlayer, ConsoleReader consoleReader) {
         this.humanPlayer = humanPlayer;
         this.computerPlayer = computerPlayer;
         this.consoleReader = consoleReader;
-        numberOfRounds = 0;
+        maximumNumberOfRounds = 0;
     }
 
-    public void playRound() {
+    public void playRound(int roundNumber) {
         Move playerMove = humanPlayer.getChoice();
         Move computerMove = computerPlayer.getChoice();
         Result result = getRoundResult(playerMove, computerMove);
         updateWinnerScore(result);
-        System.out.println(result);
-        numberOfRounds++;
+        System.out.printf("You chose %s , Computer chose %s %n %s Round Number = %s %n", playerMove, computerMove, result, roundNumber);
     }
 
     private void updateWinnerScore(Result result) {
@@ -48,24 +47,21 @@ public class Game {
         else return LOSS;
     }
 
-
-    private String getFinalResultMessage() {
-        return "Player ==> " + humanPlayer.getScore() + " Computer ==> " + computerPlayer
-                .getScore() + " after " + numberOfRounds + " rounds";
-    }
-
     public void play() {
-        char keepPlaying = 'Y';
-        while (keepPlaying == 'Y') {
-            playRound();
-            keepPlaying = consoleReader.readPlayerInput(CONTINUE_GAME_MESSAGE);
+        maximumNumberOfRounds = consoleReader.readNumberOfRounds(MAXIMUM_NUMBER_OF_ROUNDS_MESSAGE);
+        System.out.printf("You will play %s rounds %n", maximumNumberOfRounds);
+        int roundNumber = 1;
+        while (roundNumber <= maximumNumberOfRounds) {
+            playRound(roundNumber);
+            roundNumber++;
         }
-        System.out.println(getFinalResultMessage());
+        System.out.printf("Final Result :%n Player ==> %s  Computer ==> %s after %s rounds", humanPlayer.getScore(),
+                computerPlayer.getScore(), maximumNumberOfRounds);
     }
 
 
-    public int getNumberOfRounds() {
-        return numberOfRounds;
+    public int getMaximumNumberOfRounds() {
+        return maximumNumberOfRounds;
     }
 
 }

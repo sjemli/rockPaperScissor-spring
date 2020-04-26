@@ -25,7 +25,7 @@ class HumanPlayerTest {
     @Test
     public void should_return_SCISSOR_hen_input_is_s() {
         //Given
-        when(consoleReader.readPlayerInput(anyString())).thenReturn('S');
+        when(consoleReader.readPlayerMove(anyString())).thenReturn('S');
         //when
         Move playerMove = humanPlayer.getChoice();
         //then
@@ -35,7 +35,7 @@ class HumanPlayerTest {
     @Test
     public void should_return_ROCK_hen_input_is_r() {
         //Given
-        when(consoleReader.readPlayerInput(anyString())).thenReturn('R');
+        when(consoleReader.readPlayerMove(anyString())).thenReturn('R');
         //when
         Move playerMove = humanPlayer.getChoice();
         //then
@@ -45,7 +45,7 @@ class HumanPlayerTest {
     @Test
     public void should_return_PAPER_hen_input_is_p() {
         //Given
-        when(consoleReader.readPlayerInput(anyString())).thenReturn('P');
+        when(consoleReader.readPlayerMove(anyString())).thenReturn('P');
         //when
         Move playerMove = humanPlayer.getChoice();
         //then

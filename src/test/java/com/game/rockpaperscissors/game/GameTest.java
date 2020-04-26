@@ -25,6 +25,7 @@ class GameTest {
     private ComputerPlayer computerPlayer;
     @Mock
     private ConsoleReader consoleReader;
+
     private Game game;
 
     @BeforeEach
@@ -37,9 +38,10 @@ class GameTest {
         //Given
         doReturn(ROCK).when(humanPlayer).getChoice();
         doReturn(PAPER).when(computerPlayer).getChoice();
+        int roundNumber = 1;
 
         //when
-        game.playRound();
+        game.playRound(roundNumber);
 
         //then
         verify(computerPlayer).incrementScore();
@@ -53,9 +55,10 @@ class GameTest {
         Move rock = ROCK;
         doReturn(rock).when(humanPlayer).getChoice();
         doReturn(rock).when(computerPlayer).getChoice();
+        int roundNumber = 1;
 
         //when
-        game.playRound();
+        game.playRound(roundNumber);
 
         //then
         verify(computerPlayer, never()).incrementScore();
@@ -69,9 +72,10 @@ class GameTest {
         //Given
         doReturn(SCISSORS).when(humanPlayer).getChoice();
         doReturn(PAPER).when(computerPlayer).getChoice();
+        int roundNumber = 1;
 
         //when
-        game.playRound();
+        game.playRound(roundNumber);
 
         //then
         verify(humanPlayer).incrementScore();
@@ -81,29 +85,48 @@ class GameTest {
 
 
     @Test
-    void should_numberOfRounds_be_3_humanPlayer_score_be_1_and_computerPlayer_score_be_1() {
+    void should_maxNumberOfRounds_be_3_humanPlayer_score_be_1_and_computerPlayer_score_be_1() {
         //given
-        doReturn('Y', 'Y', 'N').when(consoleReader).readPlayerInput(anyString());
+        doReturn(3).when(consoleReader).readNumberOfRounds(anyString());
         doReturn(SCISSORS, ROCK, PAPER).when(humanPlayer).getChoice();
         doReturn(PAPER).when(computerPlayer).getChoice();
+
         //when
         game.play();
+
         //then
-        assertThat(game.getNumberOfRounds(), equalTo(3));
+        assertThat(game.getMaximumNumberOfRounds(), equalTo(3));
         assertThat(humanPlayer.getScore(), equalTo(1));
         assertThat(computerPlayer.getScore(), equalTo(1));
     }
 
     @Test
-    void should_numberOfRounds_be_3_humanPlayer_score_be_0_and_computerPlayer_score_be_0() {
+    void should_maxNumberOfRounds_be_3_humanPlayer_score_be_0_and_computerPlayer_score_be_0() {
         //given
-        doReturn('Y', 'Y', 'N').when(consoleReader).readPlayerInput(anyString());
+        doReturn(3).when(consoleReader).readNumberOfRounds(anyString());
         doReturn(PAPER, ROCK, SCISSORS).when(humanPlayer).getChoice();
         doReturn(PAPER, ROCK, SCISSORS).when(computerPlayer).getChoice();
+
         //when
         game.play();
+
         //then
-        assertThat(game.getNumberOfRounds(), equalTo(3));
+        assertThat(game.getMaximumNumberOfRounds(), equalTo(3));
+        assertThat(humanPlayer.getScore(), equalTo(0));
+        assertThat(computerPlayer.getScore(), equalTo(0));
+    }
+
+    @Test
+    void should_maxNumberOfRounds_be_0_humanPlayer_score_be_0_and_computerPlayer_score_be_0() {
+        //given
+        doReturn(0).when(consoleReader).readNumberOfRounds(anyString());
+
+        //when
+        game.play();
+
+        //then
+        verify(consoleReader, never()).readPlayerMove(anyString());
+        assertThat(game.getMaximumNumberOfRounds(), equalTo(0));
         assertThat(humanPlayer.getScore(), equalTo(0));
         assertThat(computerPlayer.getScore(), equalTo(0));
     }

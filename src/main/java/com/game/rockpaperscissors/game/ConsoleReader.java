@@ -7,14 +7,33 @@ import java.util.Scanner;
 @Component
 public class ConsoleReader {
 
-    private final Scanner inputScanner;
+    private final Scanner scanner;
 
     public ConsoleReader() {
-        this.inputScanner = new Scanner(System.in);
+        this.scanner = new Scanner(System.in);
     }
 
-    public char readPlayerInput(String inputMessage) {
-        System.out.println(inputMessage);
-        return inputScanner.nextLine().toUpperCase().charAt(0);
+    public char readPlayerMove(String inputMessage) {
+        char inputChar = 0;
+        while (inputChar == 0) {
+            System.out.println(inputMessage);
+            String nextLine = scanner.nextLine();
+            if (!nextLine.isEmpty()) {
+                inputChar = nextLine.toUpperCase().charAt(0);
+            }
+        }
+        return inputChar;
+    }
+
+    public int readNumberOfRounds(String message) {
+
+        System.out.println(message);
+        while (!scanner.hasNextInt()) {
+            scanner.nextLine();
+            System.out.println(message);
+        }
+        int numberOfRounds = scanner.nextInt();
+        if (scanner.hasNextLine()) scanner.nextLine();
+        return numberOfRounds;
     }
 }

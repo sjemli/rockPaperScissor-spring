@@ -10,7 +10,7 @@ import java.util.Optional;
 @Component
 public class HumanPlayer extends Player {
 
-    private static final String MOVE_INPUT_MESSAGE = "Enter move code : R => Rock, P => Paper, S => Scissors";
+    private static final String HUMAN_MOVE_INPUT_MESSAGE = "Enter move code : R => Rock, P => Paper, S => Scissors";
     private final ConsoleReader consoleReader;
 
     @Autowired
@@ -27,7 +27,7 @@ public class HumanPlayer extends Player {
 
         Optional<Move> move = Optional.empty();
         while (!move.isPresent()) {
-            move = Move.fromMnemonic(consoleReader.readPlayerInput(MOVE_INPUT_MESSAGE));
+            move = Move.fromMnemonic(consoleReader.readPlayerMove(HUMAN_MOVE_INPUT_MESSAGE));
         }
         return move.get();
     }
