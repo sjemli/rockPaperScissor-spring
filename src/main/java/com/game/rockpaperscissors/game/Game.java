@@ -25,7 +25,7 @@ public class Game {
         maximumNumberOfRounds = 0;
     }
 
-    public void playRound(int roundNumber) {
+    void playRound(int roundNumber) {
         Move playerMove = humanPlayer.getChoice();
         Move computerMove = computerPlayer.getChoice();
         Result result = getRoundResult(playerMove, computerMove);
@@ -50,17 +50,16 @@ public class Game {
     public void play() {
         maximumNumberOfRounds = consoleReader.readNumberOfRounds(MAXIMUM_NUMBER_OF_ROUNDS_MESSAGE);
         System.out.printf("You will play %s rounds %n", maximumNumberOfRounds);
-        int roundNumber = 1;
-        while (roundNumber <= maximumNumberOfRounds) {
+
+        for (int roundNumber = 1; roundNumber <= maximumNumberOfRounds; roundNumber++) {
             playRound(roundNumber);
-            roundNumber++;
         }
         System.out.printf("Final Result :%n Player ==> %s  Computer ==> %s after %s rounds", humanPlayer.getScore(),
                 computerPlayer.getScore(), maximumNumberOfRounds);
     }
 
 
-    public int getMaximumNumberOfRounds() {
+    int getMaximumNumberOfRounds() {
         return maximumNumberOfRounds;
     }
 

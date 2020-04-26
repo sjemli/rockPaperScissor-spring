@@ -95,6 +95,8 @@ class GameTest {
         game.play();
 
         //then
+        verify(humanPlayer, times(3)).getChoice();
+        verify(computerPlayer, times(3)).getChoice();
         assertThat(game.getMaximumNumberOfRounds(), equalTo(3));
         assertThat(humanPlayer.getScore(), equalTo(1));
         assertThat(computerPlayer.getScore(), equalTo(1));
@@ -103,15 +105,17 @@ class GameTest {
     @Test
     void should_maxNumberOfRounds_be_3_humanPlayer_score_be_0_and_computerPlayer_score_be_0() {
         //given
-        doReturn(3).when(consoleReader).readNumberOfRounds(anyString());
-        doReturn(PAPER, ROCK, SCISSORS).when(humanPlayer).getChoice();
-        doReturn(PAPER, ROCK, SCISSORS).when(computerPlayer).getChoice();
+        doReturn(4).when(consoleReader).readNumberOfRounds(anyString());
+        doReturn(PAPER, ROCK, SCISSORS, PAPER).when(humanPlayer).getChoice();
+        doReturn(PAPER, ROCK, SCISSORS, PAPER).when(computerPlayer).getChoice();
 
         //when
         game.play();
 
         //then
-        assertThat(game.getMaximumNumberOfRounds(), equalTo(3));
+        verify(humanPlayer, times(4)).getChoice();
+        verify(computerPlayer, times(4)).getChoice();
+        assertThat(game.getMaximumNumberOfRounds(), equalTo(4));
         assertThat(humanPlayer.getScore(), equalTo(0));
         assertThat(computerPlayer.getScore(), equalTo(0));
     }
@@ -125,7 +129,8 @@ class GameTest {
         game.play();
 
         //then
-        verify(consoleReader, never()).readPlayerMove(anyString());
+        verify(humanPlayer, never()).getChoice();
+        verify(computerPlayer, never()).getChoice();
         assertThat(game.getMaximumNumberOfRounds(), equalTo(0));
         assertThat(humanPlayer.getScore(), equalTo(0));
         assertThat(computerPlayer.getScore(), equalTo(0));
