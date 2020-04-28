@@ -6,6 +6,8 @@ import com.game.rockpaperscissors.enums.Result;
 import com.game.rockpaperscissors.players.Player;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.IntStream;
+
 import static com.game.rockpaperscissors.enums.Result.*;
 
 @Component
@@ -30,7 +32,7 @@ public class Game {
         Move computerMove = computerPlayer.getChoice();
         Result result = getRoundResult(playerMove, computerMove);
         updateWinnerScore(result);
-        System.out.printf("You chose %s , Computer chose %s %n %s Round Number = %s %n", playerMove, computerMove, result, roundNumber);
+        System.out.printf("Round Number = %s , You chose %s , Computer chose %s %n %s %n", roundNumber, playerMove, computerMove, result);
     }
 
     private void updateWinnerScore(Result result) {
@@ -51,13 +53,11 @@ public class Game {
         maximumNumberOfRounds = consoleReader.readNumberOfRounds(MAXIMUM_NUMBER_OF_ROUNDS_MESSAGE);
         System.out.printf("You will play %s rounds %n", maximumNumberOfRounds);
 
-        for (int roundNumber = 1; roundNumber <= maximumNumberOfRounds; roundNumber++) {
-            playRound(roundNumber);
-        }
-        System.out.printf("Final Result :%n Player ==> %s  Computer ==> %s after %s rounds", humanPlayer.getScore(),
+        IntStream.rangeClosed(1, maximumNumberOfRounds).forEach(this::playRound);
+
+        System.out.printf("Final Score :%n Player ==> %s  ,Computer ==> %s , after %s rounds", humanPlayer.getScore(),
                 computerPlayer.getScore(), maximumNumberOfRounds);
     }
-
 
     int getMaximumNumberOfRounds() {
         return maximumNumberOfRounds;
