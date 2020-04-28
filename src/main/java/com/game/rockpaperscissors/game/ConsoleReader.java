@@ -32,7 +32,7 @@ public class ConsoleReader {
             scanner.nextLine();
             System.out.println(message);
         }
-        int numberOfRounds = scanner.nextInt();
+        int numberOfRounds = Math.abs(scanner.nextInt());
         if (scanner.hasNextLine()) scanner.nextLine();
         return numberOfRounds;
     }

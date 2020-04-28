@@ -1,6 +1,5 @@
 package com.game.rockpaperscissors.players;
 
-
 import com.game.rockpaperscissors.enums.Move;
 import org.springframework.stereotype.Component;
 

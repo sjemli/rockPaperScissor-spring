@@ -6,20 +6,26 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 import static com.game.rockpaperscissors.enums.Move.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 class MoveTest {
 
     @Test
-    public void should_enum_contains_three_values(){
+    public void should_enum_contain_three_values() {
         assertThat(values().length, equalTo(3));
     }
+
+    @Test
+    public void should_enum_contain_ROCK_PAPER_SCISSORS() {
+        assertThat(Arrays.asList(values()), containsInAnyOrder(ROCK, SCISSORS, PAPER));
+    }
+
 
     private static Stream<Arguments> movesProvider() {
         return Stream.of(
@@ -28,6 +34,7 @@ class MoveTest {
                 Arguments.of(PAPER, ROCK)
         );
     }
+
     @ParameterizedTest(name = "should_{0}_beat_{1}")
     @MethodSource("movesProvider")
     void should_stronger_move_beat_the_weaker_move(Move strongerMove, Move weakerMove) {
